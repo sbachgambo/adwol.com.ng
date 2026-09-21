@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page Not Found | ADWOL Investment &amp; Services Ltd</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#14141a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
@@ -20,7 +21,12 @@
 
 <header class="site-header">
     <div class="container bar">
-        <div class="logo"><a href="/" rel="home">ADWOL<span class="dot">.</span><small>Investment &amp; Services</small></a></div>
+        <div class="logo">
+            <a href="/" rel="home">
+                <picture><source srcset="/assets/images/logo-emblem.webp" type="image/webp"><img class="logo-mark" src="/assets/images/logo-emblem.png" width="46" height="46" alt=""></picture>
+                <span class="logo-text">ADWOL<span class="dot">.</span><small>Investment &amp; Services</small></span>
+            </a>
+        </div>
         <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><span class="screen-reader-text">Menu</span>&#9776;</button>
         <nav class="main-nav" id="primary-menu" aria-label="Primary">
             <ul class="nav-links">
@@ -50,8 +56,9 @@
 <footer class="site-footer">
     <div class="container foot-grid">
         <div>
+            <a href="/" class="footer-logo" aria-label="ADWOL Investment &amp; Services Ltd — home"><picture><source srcset="/assets/images/logo-full.webp" type="image/webp"><img src="/assets/images/logo-full.png" width="220" height="109" alt="ADWOL Investment &amp; Services Ltd" loading="lazy"></picture></a>
             <h4>ADWOL Investment &amp; Services Ltd</h4>
-            <p>Plot 100, 4th Avenue, Gwarimpa, Abuja, FCT, Nigeria.</p>
+            <p>Abuja, FCT, Nigeria.</p>
             <a href="tel:08158435063">081 5843 5063</a>
             <a href="mailto:info@adwol.com.ng">info@adwol.com.ng</a>
             <p>www.adwol.com.ng</p>
@@ -67,6 +74,6 @@
     <div class="container copyright">© 2026 ADWOL INVESTMENT &amp; SERVICES LTD — ALL RIGHTS RESERVED</div>
 </footer>
 
-<script src="assets/js/main.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
 </body>
 </html>
