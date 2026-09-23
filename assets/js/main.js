@@ -1,6 +1,7 @@
 /**
  * ADWOL site front-end behaviour: mobile nav toggle, sticky header,
- * scroll-reveal, stat count-up, and contact form mailto fallback.
+ * scroll-reveal, stat count-up, project filters, and the contact form
+ * (submits to Web3Forms, falls back to mailto if that request fails).
  */
 ( function () {
     'use strict';
@@ -150,6 +151,7 @@
 
             var honeypot = form.querySelector( '[name="adwol_website"]' );
             var notice = document.getElementById( 'form-notice' );
+            var submitBtn = form.querySelector( 'button[type="submit"]' );
 
             var name = form.adwol_name.value.trim();
             var email = form.adwol_email.value.trim();
@@ -191,26 +193,63 @@
                 return;
             }
 
-            var recipient = form.getAttribute( 'data-recipient' ) || 'info@adwol.com.ng';
+            var recipient = form.getAttribute( 'data-recipient' ) || 'adwolinvestments@gmail.com';
             var mailSubject = subject || 'Website enquiry from ' + name;
-            var bodyLines = [
-                'Name: ' + name,
-                'Email: ' + email,
-                'Phone: ' + ( phone || '(not supplied)' ),
-                '',
-                message
-            ];
-            var mailtoUrl = 'mailto:' + encodeURIComponent( recipient )
-                + '?subject=' + encodeURIComponent( mailSubject )
-                + '&body=' + encodeURIComponent( bodyLines.join( '\n' ) );
 
-            window.location.href = mailtoUrl;
+            var fallbackToMailto = function () {
+                var bodyLines = [
+                    'Name: ' + name,
+                    'Email: ' + email,
+                    'Phone: ' + ( phone || '(not supplied)' ),
+                    '',
+                    message
+                ];
+                var mailtoUrl = 'mailto:' + encodeURIComponent( recipient )
+                    + '?subject=' + encodeURIComponent( mailSubject )
+                    + '&body=' + encodeURIComponent( bodyLines.join( '\n' ) );
+                window.location.href = mailtoUrl;
+                if ( notice ) {
+                    notice.textContent = 'We could not reach our server, so your email app should now be open with the message pre-filled instead — just hit send. If nothing opened, email us directly at ' + recipient + '.';
+                    notice.className = 'form-notice error';
+                    notice.hidden = false;
+                }
+            };
 
-            if ( notice ) {
-                notice.textContent = 'Your email app should now be open with your message pre-filled — just hit send. If nothing opened, email us directly at ' + recipient + '.';
-                notice.className = 'form-notice success';
-                notice.hidden = false;
-            }
+            if ( submitBtn ) { submitBtn.disabled = true; }
+
+            fetch( 'https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify( {
+                    access_key: form.querySelector( '[name="access_key"]' ).value,
+                    subject: mailSubject,
+                    from_name: name,
+                    replyto: email,
+                    name: name,
+                    email: email,
+                    phone: phone || '(not supplied)',
+                    message: message
+                } )
+            } ).then( function ( response ) {
+                return response.json().then( function ( data ) {
+                    return { ok: response.ok && data.success, data: data };
+                } );
+            } ).then( function ( result ) {
+                if ( submitBtn ) { submitBtn.disabled = false; }
+                if ( result.ok ) {
+                    form.reset();
+                    if ( notice ) {
+                        notice.textContent = 'Thank you — your enquiry has been sent. A member of the ADWOL team will be in touch shortly.';
+                        notice.className = 'form-notice success';
+                        notice.hidden = false;
+                    }
+                } else {
+                    fallbackToMailto();
+                }
+            } ).catch( function () {
+                if ( submitBtn ) { submitBtn.disabled = false; }
+                fallbackToMailto();
+            } );
         } );
     }
 
