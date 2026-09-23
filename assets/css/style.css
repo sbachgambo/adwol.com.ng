@@ -1,6 +1,6 @@
 /*
   ADWOL Investment & Services Ltd — "Blueprint" system
-  https://www.adwol.com.ng
+  https://adwol.com.ng
 */
 
 :root{
@@ -490,3 +490,19 @@ section{padding:100px 0;position:relative;}
 /* ---------- concept note (preview only, harmless if present) ---------- */
 .note{background:var(--brass);color:var(--ink);text-align:center;font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.03em;padding:11px 20px;}
 .foot-grid .footer-logo{display:inline-block;margin:0 0 18px;}
+
+/* ---------- case study ---------- */
+.case-stages{background:var(--paper);}
+.stage{display:grid;grid-template-columns:0.8fr 1.2fr;gap:48px;padding:44px 0;border-top:1px solid var(--line);align-items:start;}
+.stage:first-of-type{border-top:none;padding-top:0;}
+.stage .n{font-family:var(--font-mono);font-size:0.72rem;font-weight:600;letter-spacing:0.16em;color:var(--signal);display:block;margin-bottom:10px;}
+.stage h3{font-size:1.9rem;margin-bottom:12px;}
+.stage-copy p{color:var(--steel);max-width:44ch;}
+.stage-media{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.stage-media figure{margin:0;}
+.stage-media img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+.stage-media figcaption{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.04em;color:var(--steel-soft);padding-top:8px;}
+.case-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px;padding-top:36px;border-top:1px solid var(--line);}
+.case-link{display:inline-block;margin-top:6px;font-family:var(--font-mono);font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--signal);text-decoration:none;}
+.case-link:hover{text-decoration:underline;}
+@media (max-width:980px){.stage{grid-template-columns:1fr;gap:22px;}}
