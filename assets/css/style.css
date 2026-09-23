@@ -312,6 +312,7 @@ section{padding:100px 0;position:relative;}
 /* ---------- projects (home strip) ---------- */
 .projects{background:var(--draft);}
 .proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+a.proj-card{display:block;text-decoration:none;color:inherit;}
 .proj-card .media{height:160px;overflow:hidden;}
 .proj-card .media img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
 .proj-card:hover .media img{transform:scale(1.07);}
